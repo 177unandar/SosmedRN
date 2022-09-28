@@ -28,14 +28,18 @@ const BottomNatigation = () => {
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#FFF"
-      barStyle={{backgroundColor: 'tomato'}}>
+      barStyle={{backgroundColor: 'purple'}}>
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Feeds',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="image-auto-adjust"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
@@ -45,7 +49,11 @@ const BottomNatigation = () => {
         options={{
           tabBarLabel: 'Post',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="camera" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="camera-plus"
+              color={color}
+              size={26}
+            />
           ),
         }}
       />
