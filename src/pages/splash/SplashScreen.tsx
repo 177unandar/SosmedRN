@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {View, Text} from 'react-native';
-import {SplashNavigationProp} from '../../navigations/types';
+import {SplashNavigationProp} from '../../navigations/types.navigation';
 
 const SPLASH_DELAY: number = 3000;
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import SplashScreen from '../pages/splash/SplashScreen';
 import BottomNatigation from './BottomNatigation';
-import {SplashStackNavigatorParamList} from './types';
+import {SplashStackNavigatorParamList} from './types.navigation';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator<SplashStackNavigatorParamList>();
