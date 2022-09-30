@@ -1,28 +1,33 @@
 import * as React from 'react';
-import {View} from 'react-native';
-import {Avatar, Button, Caption, Card} from 'react-native-paper';
+import { View } from 'react-native';
+import { Avatar, Button, Caption, Card, Text } from 'react-native-paper';
+import { Feed } from '../models/Feed';
+import moment from 'moment';
 
-const FeedCard = () => {
+type Props = {
+  feed: Feed
+}
+
+const FeedCard: React.FC<Props> = ({ feed }) => {
+  const initial = () => {
+    let arr = feed.fullname.split(" ");
+    if (arr.length > 1) {
+      return `${arr[0].substring(0, 1)}${arr[arr.length - 1].substring(0, 1)}`.toUpperCase();
+    }
+    return feed.fullname.substring(0, 1);
+  }
   return (
-    <View style={{margin: 10}}>
+    <View style={{ margin: 10 }}>
       <Card>
         <Card.Title
-          title="username"
-          subtitle="User Fullname"
-          left={props => <Avatar.Text {...props} label="US" />}
-          right={() => <Caption style={{margin: 10}}>5 minutes ago</Caption>}
+          title={feed.username}
+          subtitle={feed.fullname}
+          left={props => <Avatar.Text {...props} label={initial()} />}
+          right={() => <Text style={{ margin: 10 }}>{moment(feed.created_at).fromNow()}</Text>}
         />
-        <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
+        <Card.Cover source={{ uri: feed.image_url }} />
         <Card.Content>
-          <Caption>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </Caption>
+          <Caption>{feed.caption}</Caption>
         </Card.Content>
         <Card.Actions>
           <Button>Comment</Button>

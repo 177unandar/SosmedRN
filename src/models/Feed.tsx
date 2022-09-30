@@ -4,6 +4,6 @@ export interface Feed {
   fullname: string;
   image_url: string;
   caption: string;
-  created_at: string;
+  created_at: Date;
   total_comments: number;
 }
