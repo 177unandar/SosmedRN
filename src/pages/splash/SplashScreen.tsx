@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { SplashNavigationProp } from '../../navigations/types.navigation';
+import {View, Text} from 'react-native';
+import {SplashNavigationProp} from '../../navigations/types.navigation';
 
 const SPLASH_DELAY: number = 1000;
 
@@ -25,7 +25,7 @@ const SplashScreen = () => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text style={{ color: 'black' }}>Splash Screen</Text>
+      <Text style={{color: 'black'}}>Splash Screen</Text>
     </View>
   );
 };

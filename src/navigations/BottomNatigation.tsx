@@ -7,9 +7,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import HomeScreen from '../pages/home/HomeScreen';
 import PostScreen from '../pages/post/PostScreen';
 import AccountScreen from '../pages/account/AccountScreen';
+import {bottomNavStyle} from '../styles/bottomNavStyle';
 // import {SplashNavigationProp} from './types';
 
 const Tab = createMaterialBottomTabNavigator();
+
+const iconSize = 26;
 
 const BottomNatigation = () => {
   // const natigation = useNavigation<SplashNavigationProp>();
@@ -28,7 +31,7 @@ const BottomNatigation = () => {
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#FFF"
-      barStyle={{backgroundColor: 'purple'}}>
+      barStyle={bottomNavStyle.barStyle}>
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -38,7 +41,7 @@ const BottomNatigation = () => {
             <MaterialCommunityIcons
               name="image-auto-adjust"
               color={color}
-              size={26}
+              size={iconSize}
             />
           ),
         }}
@@ -52,7 +55,7 @@ const BottomNatigation = () => {
             <MaterialCommunityIcons
               name="camera-plus"
               color={color}
-              size={26}
+              size={iconSize}
             />
           ),
         }}
@@ -63,7 +66,11 @@ const BottomNatigation = () => {
         options={{
           tabBarLabel: 'Account',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="account"
+              color={color}
+              size={iconSize}
+            />
           ),
         }}
       />
