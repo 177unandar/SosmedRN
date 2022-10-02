@@ -17,8 +17,8 @@ const FeedCard: React.FC<Props> = ({feed}) => {
       <Card>
         <Card.Cover resizeMode="contain" source={{uri: feed.image_url}} />
         <Card.Title
-          title={feed.fullname}
-          subtitle={feed.username}
+          title={feed.username.toLowerCase()}
+          subtitle={feed.fullname}
           left={props => (
             <Avatar.Text {...props} label={initial(feed.fullname)} />
           )}

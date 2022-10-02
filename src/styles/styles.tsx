@@ -38,6 +38,15 @@ export const styles = StyleSheet.create({
 });
 
 export const margins = StyleSheet.create({
+  l2: {
+    marginLeft: space2,
+  },
+  b2: {
+    marginBottom: space2,
+  },
+  v2: {
+    marginVertical: space2,
+  },
   v3: {
     marginVertical: space3,
   },

@@ -9,9 +9,15 @@ import {BaseResponse} from '../../api/response/BaseResponse';
 import {PaginationResponse} from '../../api/response/PaginationResponse';
 import {Pagination} from '../../models/Pagination';
 import {styles} from '../../styles/styles';
+import {BottomNavigationProp} from '../../navigations/types.navigation';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<BottomNavigationProp>();
+  navigation.addListener('focus', () => {
+    loadData(1);
+  });
   const feeds: Feed[] = useAppSelector(state => state.feed.feeds);
   const pagination: Pagination | null = useAppSelector(
     state => state.feed.pagination,
@@ -21,7 +27,9 @@ const HomeScreen: React.FC = () => {
   );
 
   const loadData = async (page: number) => {
-    dispatch(feedSlice.actions.setRefreshing(true));
+    if (page === 1) {
+      dispatch(feedSlice.actions.setRefreshing(true));
+    }
     let response = await dispatch(fetchFeeds(page));
     let payload = response.payload as BaseResponse<PaginationResponse<Feed>>;
     dispatch(feedSlice.actions.updateFeeds(payload));
@@ -33,11 +41,6 @@ const HomeScreen: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    if (!feeds.length) {
-      loadData(1);
-    }
-  });
   return (
     <View style={styles.container}>
       <FlatList

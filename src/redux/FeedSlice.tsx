@@ -29,6 +29,10 @@ export const feedSlice = createSlice({
         state.isRefreshing = false;
       }
     },
+    clearFeeds: state => {
+      state.feeds = [];
+      state.pagination = null;
+    },
     setRefreshing: (state, action: PayloadAction<boolean>) => {
       state.isRefreshing = action.payload;
     },
