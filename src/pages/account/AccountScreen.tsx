@@ -12,11 +12,6 @@ const AccountScreen: React.FC = () => {
   const isRegistering: boolean = useAppSelector(
     state => state.account.isRegistering,
   );
-
-  React.useEffect(() => {
-    console.log('user', user);
-  });
-
   return (
     <View style={[styles.container, styles.fullScreenCenterChilds]}>
       {user !== null && <UserScreen />}

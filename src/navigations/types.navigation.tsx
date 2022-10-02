@@ -7,3 +7,12 @@ export type SplashStackNavigatorParamList = {
 
 export type SplashNavigationProp =
   NativeStackNavigationProp<SplashStackNavigatorParamList>;
+
+export type BottomStackNavigatorParamList = {
+  Home: undefined;
+  Post: undefined;
+  Account: undefined;
+};
+
+export type BottomNavigationProp =
+  NativeStackNavigationProp<BottomStackNavigatorParamList>;

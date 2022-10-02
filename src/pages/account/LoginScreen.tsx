@@ -38,7 +38,6 @@ const LoginScreen = () => {
       postLogin(new LoginPayload(username, password)),
     );
     let response = result.payload as BaseResponse<LoginResponse | null>;
-    console.log('response login', response);
     if (response.success && response.data !== null) {
       await parseLoginResponse(response.data);
       resetForm();

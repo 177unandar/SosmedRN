@@ -1,22 +1,25 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import React, {useEffect} from 'react';
-import {BackHandler, View} from 'react-native';
+import {BackHandler} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../pages/home/HomeScreen';
 import PostScreen from '../pages/post/PostScreen';
 import AccountScreen from '../pages/account/AccountScreen';
 import {bottomNavStyle} from '../styles/bottomNavStyle';
-import {useAppDispatch} from '../redux/hook';
+import {useAppDispatch, useAppSelector} from '../redux/hook';
 import {snackbarSlice} from '../redux/SnackbarSlice';
+import {BottomStackNavigatorParamList} from './types.navigation';
+import {User} from '../models/User';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator<BottomStackNavigatorParamList>();
 
 const iconSize = 26;
 const EXIT_DELAY: number = 3000;
 
 const BottomNatigation = () => {
   const dispatch = useAppDispatch();
+  const user: User | null = useAppSelector(state => state.account.user);
   const [backToExit, setBackToExit] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const BottomNatigation = () => {
       activeColor="#FFF"
       barStyle={bottomNavStyle.barStyle}>
       <Tab.Screen
-        name="HomeScreen"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Feeds',
@@ -58,20 +61,22 @@ const BottomNatigation = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Post"
-        component={PostScreen}
-        options={{
-          tabBarLabel: 'Post',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons
-              name="camera-plus"
-              color={color}
-              size={iconSize}
-            />
-          ),
-        }}
-      />
+      {user!! && (
+        <Tab.Screen
+          name="Post"
+          component={PostScreen}
+          options={{
+            tabBarLabel: 'Post',
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons
+                name="camera-plus"
+                color={color}
+                size={iconSize}
+              />
+            ),
+          }}
+        />
+      )}
       <Tab.Screen
         name="Account"
         component={AccountScreen}
