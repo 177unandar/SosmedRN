@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {BaseResponse} from '../models/BaseResponse';
+import {BaseResponse} from '../api/response/BaseResponse';
 import {Feed} from '../models/Feed';
-import {PaginationResponse} from '../models/PaginationResponse';
+import {PaginationResponse} from '../api/response/PaginationResponse';
 import {FeedState} from './redux.types';
 
 const initialState: FeedState = {
@@ -19,7 +19,7 @@ export const feedSlice = createSlice({
       action: PayloadAction<BaseResponse<PaginationResponse<Feed>>>,
     ) => {
       let response = action.payload;
-      if (response.status === 'success') {
+      if (response.success) {
         if (response.data.pagination.currentPage > 1) {
           state.feeds = state.feeds.concat(response.data.rows);
         } else {

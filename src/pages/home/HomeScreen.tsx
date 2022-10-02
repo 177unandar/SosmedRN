@@ -5,8 +5,8 @@ import {FlatList, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../redux/hook';
 import {fetchFeeds} from '../../api/feedApi';
 import {feedSlice} from '../../redux/FeedSlice';
-import {BaseResponse} from '../../models/BaseResponse';
-import {PaginationResponse} from '../../models/PaginationResponse';
+import {BaseResponse} from '../../api/response/BaseResponse';
+import {PaginationResponse} from '../../api/response/PaginationResponse';
 import {Pagination} from '../../models/Pagination';
 import {styles} from '../../styles/styles';
 

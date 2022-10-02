@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 
-const space1 = 5;
-const space2 = 10;
-const space3 = 15;
-const space4 = 20;
+export const space1 = 5;
+export const space2 = 10;
+export const space3 = 20;
+export const space4 = 30;
 
 export const styles = StyleSheet.create({
   container: {
@@ -30,6 +30,10 @@ export const styles = StyleSheet.create({
   },
   componentStyle: {
     marginVertical: space1,
+  },
+  componentError: {
+    backgroundColor: 'red',
+    color: 'white',
   },
 });
 

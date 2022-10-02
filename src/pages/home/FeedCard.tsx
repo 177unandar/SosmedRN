@@ -5,22 +5,13 @@ import {Feed} from '../../models/Feed';
 import moment from 'moment';
 import {styles} from '../../styles/styles';
 import {cardStyles} from '../../styles/cardStyles';
+import {initial} from '../../utils/StringHelpers';
 
 type Props = {
   feed: Feed;
 };
 
 const FeedCard: React.FC<Props> = ({feed}) => {
-  const initial = () => {
-    let arr = feed.fullname.split(' ');
-    if (arr.length > 1) {
-      return `${arr[0].substring(0, 1)}${arr[arr.length - 1].substring(
-        0,
-        1,
-      )}`.toUpperCase();
-    }
-    return feed.fullname.substring(0, 1);
-  };
   return (
     <View style={styles.componentStyle}>
       <Card>
@@ -28,7 +19,9 @@ const FeedCard: React.FC<Props> = ({feed}) => {
         <Card.Title
           title={feed.fullname}
           subtitle={feed.username}
-          left={props => <Avatar.Text {...props} label={initial()} />}
+          left={props => (
+            <Avatar.Text {...props} label={initial(feed.fullname)} />
+          )}
           right={() => (
             <Text style={cardStyles.createdAt}>
               {moment(feed.created_at).fromNow()}

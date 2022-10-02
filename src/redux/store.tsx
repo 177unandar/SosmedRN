@@ -1,10 +1,18 @@
 import {configureStore} from '@reduxjs/toolkit';
+import {accoutSlice} from './AccountSlice';
 import {feedSlice} from './FeedSlice';
+import {snackbarSlice} from './SnackbarSlice';
 
 export const store = configureStore({
   reducer: {
     feed: feedSlice.reducer,
+    account: accoutSlice.reducer,
+    snackbar: snackbarSlice.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

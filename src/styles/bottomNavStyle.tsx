@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from 'react-native-paper';
 
 export const bottomNavStyle = StyleSheet.create({
   barStyle: {
-    backgroundColor: '#9C27B0',
+    backgroundColor: Colors.blue900,
   },
 });

@@ -1,24 +1,36 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-// import {useNavigation} from '@react-navigation/native';
-import {useEffect} from 'react';
-import {BackHandler} from 'react-native';
+import React, {useEffect} from 'react';
+import {BackHandler, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../pages/home/HomeScreen';
 import PostScreen from '../pages/post/PostScreen';
 import AccountScreen from '../pages/account/AccountScreen';
 import {bottomNavStyle} from '../styles/bottomNavStyle';
-// import {SplashNavigationProp} from './types';
+import {useAppDispatch} from '../redux/hook';
+import {snackbarSlice} from '../redux/SnackbarSlice';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const iconSize = 26;
+const EXIT_DELAY: number = 3000;
 
 const BottomNatigation = () => {
-  // const natigation = useNavigation<SplashNavigationProp>();
+  const dispatch = useAppDispatch();
+  const [backToExit, setBackToExit] = React.useState<boolean>(false);
+
   useEffect(() => {
     const backAction = () => {
-      BackHandler.exitApp();
+      if (backToExit) {
+        dispatch(snackbarSlice.actions.hide);
+        BackHandler.exitApp();
+      } else {
+        dispatch(snackbarSlice.actions.info('Press once again to exit'));
+        setBackToExit(true);
+        setTimeout(() => {
+          setBackToExit(false);
+        }, EXIT_DELAY);
+      }
       return true;
     };
     const backHandler = BackHandler.addEventListener(
@@ -26,7 +38,7 @@ const BottomNatigation = () => {
       backAction,
     );
     return () => backHandler.remove();
-  }, []);
+  });
   return (
     <Tab.Navigator
       initialRouteName="Home"

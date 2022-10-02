@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {BaseResponse} from '../models/BaseResponse';
+import {BaseResponse} from './response/BaseResponse';
 import {Feed} from '../models/Feed';
-import {PaginationResponse} from '../models/PaginationResponse';
+import {PaginationResponse} from './response/PaginationResponse';
 import {BASE_URL} from '../utils/config';
 
 export const fetchFeeds = createAsyncThunk(
