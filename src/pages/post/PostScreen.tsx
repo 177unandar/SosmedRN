@@ -60,22 +60,27 @@ const PostScreen = () => {
       let result = await dispatch(
         postFeed(new FeedPayload(selectedImage, caption)),
       );
-      console.log('result', result);
-      if (result.payload !== undefined) {
+      if (result.payload!!) {
         let response = result.payload as BaseResponse<string>;
-        console.log('response', response);
         if (response.success) {
           dispatch(feedSlice.actions.clearFeeds);
           snackbarSlice.actions.info(response.data);
           navigation.navigate('Home');
           resetForm();
         } else {
-          snackbarSlice.actions.error(response.message);
+          dispatch(snackbarSlice.actions.error(response.message));
+          if (response.data === 'Unauthorize') {
+            dispatch(accoutSlice.actions.updateUserState(null));
+            navigation.navigate('Account');
+          }
           setLoading(false);
         }
       } else {
-        snackbarSlice.actions.error('invalid session');
-        accoutSlice.actions.updateUserState(null);
+        dispatch(
+          snackbarSlice.actions.error(
+            'Create new feed failed, please try again',
+          ),
+        );
         setLoading(false);
       }
     }
