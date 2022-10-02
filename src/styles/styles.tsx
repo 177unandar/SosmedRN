@@ -47,10 +47,16 @@ export const margins = StyleSheet.create({
   v2: {
     marginVertical: space2,
   },
+  t3: {
+    marginTop: space3,
+  },
   v3: {
     marginVertical: space3,
   },
   t4: {
     marginTop: space4,
+  },
+  b4: {
+    marginBottom: space4,
   },
 });

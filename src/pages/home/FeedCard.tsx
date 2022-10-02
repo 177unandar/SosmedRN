@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Avatar, Button, Caption, Card, Divider, Text} from 'react-native-paper';
 import {Feed} from '../../models/Feed';
 import moment from 'moment';
-import {styles} from '../../styles/styles';
+import {margins, styles} from '../../styles/styles';
 import {cardStyles} from '../../styles/cardStyles';
 import {initial} from '../../utils/StringHelpers';
 
@@ -30,9 +30,8 @@ const FeedCard: React.FC<Props> = ({feed}) => {
         />
         <Divider />
         <Card.Content>
-          <Caption>{feed.caption}</Caption>
+          <Caption style={margins.t3}>{feed.caption}</Caption>
         </Card.Content>
-        <Divider />
         <Card.Actions>
           <Button>Comment</Button>
         </Card.Actions>

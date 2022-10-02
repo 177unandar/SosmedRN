@@ -1,13 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+import {Avatar, Colors, Title} from 'react-native-paper';
 import {User} from '../../models/User';
 import {SplashNavigationProp} from '../../navigations/types.navigation';
 import {accoutSlice} from '../../redux/AccountSlice';
 import {useAppDispatch, useAppSelector} from '../../redux/hook';
+import {snackbarSlice} from '../../redux/SnackbarSlice';
+import {margins} from '../../styles/styles';
 import {getLogedUser} from '../../utils/storage/UserSession';
 
-const SPLASH_DELAY: number = 1000;
+const SPLASH_DELAY: number = 2000;
 
 const SplashScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +24,7 @@ const SplashScreen: React.FC = () => {
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(snackbarSlice.actions.hide());
       setTimeout(async () => {
         if (user == null) {
           await updateUserState();
@@ -39,7 +43,8 @@ const SplashScreen: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Text style={{color: 'black'}}>Splash Screen</Text>
+      <Avatar.Icon style={margins.b4} size={100} icon="chat" />
+      <Title style={{color: Colors.blue500}}>SOSMED APP</Title>
     </View>
   );
 };
