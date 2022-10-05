@@ -14,6 +14,7 @@ import { CommentItem } from './CommentItem';
 import { PostCommentPayload } from '../../api/payload/PostCommentPayload';
 import { snackbarSlice } from '../../redux/SnackbarSlice';
 import { margins } from '../../styles/styles';
+import { User } from '../../models/User';
 
 
 const CommentSection: React.FC = () => {
@@ -23,6 +24,7 @@ const CommentSection: React.FC = () => {
     );
     const [newComment, setNewComment] = React.useState('');
     const [isLoading, setLoading] = React.useState<boolean>(false);
+    const user: User | null = useAppSelector(state => state.account.user);
     const comments: Comment[] = useAppSelector(state => state.comment.comments);
     const pagination: Pagination | null = useAppSelector(
         state => state.comment.pagination,
@@ -85,10 +87,12 @@ const CommentSection: React.FC = () => {
                         />
                     </Dialog.ScrollArea>
                 }
-                <Dialog.Actions>
-                    <TextInput value={newComment} onChangeText={newValue => setNewComment(newValue)} mode='outlined' multiline={true} style={{ flex: 1 }} label="comment" />
-                    <Button loading={isLoading} disabled={newComment.length == 0} onPress={async () => await submitComment()}>Submit</Button>
-                </Dialog.Actions>
+                {user != null &&
+                    <Dialog.Actions>
+                        <TextInput value={newComment} onChangeText={newValue => setNewComment(newValue)} mode='outlined' multiline={true} style={{ flex: 1 }} label="comment" />
+                        <Button loading={isLoading} disabled={newComment.length == 0} onPress={async () => await submitComment()}>Submit</Button>
+                    </Dialog.Actions>
+                }
             </Dialog>
         </Portal>
     );
