@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { Avatar, Button, Caption, Card, Divider, Text } from 'react-native-paper';
+import { Avatar, Badge, Button, Caption, Card, Divider, Text } from 'react-native-paper';
 import { Feed } from '../../models/Feed';
 import moment from 'moment';
 import { margins, styles } from '../../styles/styles';
@@ -50,7 +50,10 @@ const FeedCard: React.FC<Props> = ({ feed }) => {
           <Caption style={margins.t3}>{feed.caption}</Caption>
         </Card.Content>
         <Card.Actions>
-          <Button onPress={async () => await showComments()}>Comment</Button>
+          <Button style={styles.centerChilds} onPress={async () => await showComments()}>Comments</Button>
+          {feed.total_comments > 0 &&
+            <Badge>{feed.total_comments}</Badge>
+          }
         </Card.Actions>
       </Card>
     </View>
