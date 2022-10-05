@@ -1,13 +1,14 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {BaseResponse} from '../api/response/BaseResponse';
-import {Feed} from '../models/Feed';
-import {PaginationResponse} from '../api/response/PaginationResponse';
-import {FeedState} from './redux.types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { BaseResponse } from '../api/response/BaseResponse';
+import { Feed } from '../models/Feed';
+import { PaginationResponse } from '../api/response/PaginationResponse';
+import { FeedState } from './redux.types';
 
 const initialState: FeedState = {
   feeds: [],
   pagination: null,
   isRefreshing: true,
+  selectedId: 0
 };
 
 export const feedSlice = createSlice({
@@ -35,6 +36,9 @@ export const feedSlice = createSlice({
     },
     setRefreshing: (state, action: PayloadAction<boolean>) => {
       state.isRefreshing = action.payload;
+    },
+    setSelectedId: (state, action: PayloadAction<number>) => {
+      state.selectedId = action.payload;
     },
   },
 });

@@ -1,10 +1,13 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {BaseResponse} from './response/BaseResponse';
-import {Feed} from '../models/Feed';
-import {PaginationResponse} from './response/PaginationResponse';
-import {BASE_URL} from '../utils/config';
-import {FeedPayload} from './payload/FeedPayload';
-import {getSessionToken} from '../utils/storage/UserSession';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { BaseResponse } from './response/BaseResponse';
+import { Feed } from '../models/Feed';
+import { Comment } from '../models/Comment';
+import { PaginationResponse } from './response/PaginationResponse';
+import { BASE_URL } from '../utils/config';
+import { FeedPayload } from './payload/FeedPayload';
+import { getSessionToken } from '../utils/storage/UserSession';
+import { GetCommentPayload } from './payload/GetCommentPayload';
+import { PostCommentPayload } from './payload/PostCommentPayload';
 
 export const fetchFeeds = createAsyncThunk(
   'feeds/fetch',
@@ -37,6 +40,37 @@ export const postFeed = createAsyncThunk(
           Authorization: token,
         },
         body: fData,
+      });
+      let json = (await response.json()) as BaseResponse<string>;
+      return json;
+    }
+  },
+);
+
+export const fetchComments = createAsyncThunk(
+  'comments/fetch',
+  async (payload: GetCommentPayload): Promise<BaseResponse<PaginationResponse<Comment>>> => {
+    let response = await fetch(`${BASE_URL}feed/${payload.feedId}/comment?page=${payload.page}`);
+    let json = (await response.json()) as BaseResponse<
+      PaginationResponse<Comment>
+    >;
+    return json;
+  },
+);
+
+export const postComment = createAsyncThunk(
+  'comment/post',
+  async (payload: PostCommentPayload): Promise<BaseResponse<string> | undefined> => {
+    let token = await getSessionToken();
+    if (token != undefined) {
+      let response = await fetch(`${BASE_URL}feed/${payload.feedId}/comment`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ comment: payload.comment }),
       });
       let json = (await response.json()) as BaseResponse<string>;
       return json;

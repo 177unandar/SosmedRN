@@ -1,16 +1,17 @@
 import * as React from 'react';
 import FeedCard from './FeedCard';
-import {Feed} from '../../models/Feed';
-import {FlatList, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../redux/hook';
-import {fetchFeeds} from '../../api/feedApi';
-import {feedSlice} from '../../redux/FeedSlice';
-import {BaseResponse} from '../../api/response/BaseResponse';
-import {PaginationResponse} from '../../api/response/PaginationResponse';
-import {Pagination} from '../../models/Pagination';
-import {styles} from '../../styles/styles';
-import {BottomNavigationProp} from '../../navigations/types.navigation';
-import {useNavigation} from '@react-navigation/native';
+import { Feed } from '../../models/Feed';
+import { FlatList, View } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { fetchFeeds } from '../../api/feedApi';
+import { feedSlice } from '../../redux/FeedSlice';
+import { BaseResponse } from '../../api/response/BaseResponse';
+import { PaginationResponse } from '../../api/response/PaginationResponse';
+import { Pagination } from '../../models/Pagination';
+import { styles } from '../../styles/styles';
+import { BottomNavigationProp } from '../../navigations/types.navigation';
+import { useNavigation } from '@react-navigation/native';
+import CommentSection from './CommentSection';
 
 const HomeScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +26,6 @@ const HomeScreen: React.FC = () => {
   const isRefreshing: boolean = useAppSelector(
     state => state.feed.isRefreshing,
   );
-
   const loadData = async (page: number) => {
     if (page === 1) {
       dispatch(feedSlice.actions.setRefreshing(true));
@@ -49,10 +49,11 @@ const HomeScreen: React.FC = () => {
           loadMore();
         }}
         data={feeds}
-        renderItem={({item}) => <FeedCard feed={item} />}
+        renderItem={({ item }) => <FeedCard feed={item} />}
         onRefresh={() => loadData(1)}
         refreshing={isRefreshing}
       />
+      <CommentSection />
     </View>
   );
 };

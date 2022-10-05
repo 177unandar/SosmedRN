@@ -1,11 +1,13 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {accoutSlice} from './AccountSlice';
-import {feedSlice} from './FeedSlice';
-import {snackbarSlice} from './SnackbarSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import { accoutSlice } from './AccountSlice';
+import { commentSlice } from './CommentSlice';
+import { feedSlice } from './FeedSlice';
+import { snackbarSlice } from './SnackbarSlice';
 
 export const store = configureStore({
   reducer: {
     feed: feedSlice.reducer,
+    comment: commentSlice.reducer,
     account: accoutSlice.reducer,
     snackbar: snackbarSlice.reducer,
   },

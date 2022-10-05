@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const space1 = 5;
 export const space2 = 10;
@@ -49,6 +49,9 @@ export const margins = StyleSheet.create({
   },
   t3: {
     marginTop: space3,
+  },
+  v1: {
+    marginVertical: space1,
   },
   v3: {
     marginVertical: space3,
