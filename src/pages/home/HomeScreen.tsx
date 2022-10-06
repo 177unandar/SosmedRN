@@ -49,7 +49,7 @@ const HomeScreen: React.FC = () => {
           loadMore();
         }}
         data={feeds}
-        renderItem={({ item }) => <FeedCard feed={item} />}
+        renderItem={({ item, index }) => <FeedCard feed={item} isLoading={(index == (feeds.length - 1) && pagination?.nextPage != null)} />}
         onRefresh={() => loadData(1)}
         refreshing={isRefreshing}
       />

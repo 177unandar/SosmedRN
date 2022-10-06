@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { Avatar, Badge, Button, Caption, Card, Divider, Text } from 'react-native-paper';
+import { ActivityIndicator, Avatar, Badge, Button, Caption, Card, Divider, Text } from 'react-native-paper';
 import { Feed } from '../../models/Feed';
 import moment from 'moment';
 import { margins, styles } from '../../styles/styles';
@@ -17,9 +17,10 @@ import { commentSlice } from '../../redux/CommentSlice';
 
 type Props = {
   feed: Feed;
+  isLoading: boolean,
 };
 
-const FeedCard: React.FC<Props> = ({ feed }) => {
+const FeedCard: React.FC<Props> = ({ feed, isLoading }) => {
   const dispatch = useAppDispatch();
 
   const showComments = async () => {
@@ -56,6 +57,9 @@ const FeedCard: React.FC<Props> = ({ feed }) => {
           }
         </Card.Actions>
       </Card>
+      {isLoading &&
+        <ActivityIndicator style={margins.v3} animating={true} />
+      }
     </View>
   );
 };
