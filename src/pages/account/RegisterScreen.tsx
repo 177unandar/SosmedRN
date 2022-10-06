@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView, View} from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {
   ActivityIndicator,
   Button,
@@ -10,15 +10,15 @@ import {
   TextInput,
   Title,
 } from 'react-native-paper';
-import {postCheckUsername, postRegister} from '../../api/accountApi';
-import {RegisterPayload} from '../../api/payload/RegisterPayload';
-import {BaseResponse} from '../../api/response/BaseResponse';
-import {User} from '../../models/User';
-import {accoutSlice} from '../../redux/AccountSlice';
-import {useAppDispatch} from '../../redux/hook';
-import {snackbarSlice} from '../../redux/SnackbarSlice';
-import {margins, styles} from '../../styles/styles';
-import {saveSession} from '../../utils/storage/UserSession';
+import { postCheckUsername, postRegister } from '../../api/accountApi';
+import { RegisterPayload } from '../../api/payload/RegisterPayload';
+import { BaseResponse } from '../../api/response/BaseResponse';
+import { User } from '../../models/User';
+import { accoutSlice } from '../../redux/AccountSlice';
+import { useAppDispatch } from '../../redux/hook';
+import { snackbarSlice } from '../../redux/SnackbarSlice';
+import { margins, styles } from '../../styles/styles';
+import { saveSession } from '../../utils/storage/UserSession';
 
 const RegisterScreen = () => {
   const dispatch = useAppDispatch();
@@ -36,11 +36,12 @@ const RegisterScreen = () => {
   let usernameValue = '';
 
   const submitForm = async () => {
-    setSubmitted(true);
-    if (isValidForm()) {
-      setLoading(true);
-      registering();
-      console.log('submitForm', username, password);
+    if (!isLoading) {
+      setSubmitted(true);
+      if (isValidForm()) {
+        setLoading(true);
+        registering();
+      }
     }
   };
 
@@ -136,18 +137,19 @@ const RegisterScreen = () => {
     <ScrollView style={[styles.fullWidth]}>
       <Title style={[styles.alignCenter]}>Register</Title>
       <Divider style={margins.v3} />
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <TextInput
           label="Username"
           value={username}
           style={styles.fullWidth}
+          disabled={isLoading}
           error={showUsernameError()}
           onChangeText={async newValue => await onUsernameChanged(newValue)}
           right={usernameWidget()}
         />
         {isCheckingUsername && (
           <ActivityIndicator
-            style={{marginLeft: -30}}
+            style={{ marginLeft: -30 }}
             animating={true}
             color={Colors.blueA700}
           />
@@ -159,6 +161,7 @@ const RegisterScreen = () => {
       <TextInput
         label="Full Name"
         value={fullname}
+        disabled={isLoading}
         error={isSubmitted && isEmptyFullname()}
         onChangeText={newValue => setFullname(newValue)}
       />
@@ -169,6 +172,7 @@ const RegisterScreen = () => {
         label="Password"
         secureTextEntry
         value={password}
+        disabled={isLoading}
         error={isSubmitted && isEmptyPassword()}
         onChangeText={newValue => setPassword(newValue)}
       />
@@ -179,6 +183,7 @@ const RegisterScreen = () => {
         label="Confirm Password"
         secureTextEntry
         value={passwordConf}
+        disabled={isLoading}
         error={isErrorPasswordConf()}
         onChangeText={newValue => setPasswordConf(newValue)}
       />

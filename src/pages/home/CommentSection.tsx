@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FlatList, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { commentSlice } from '../../redux/CommentSlice';
-import { ActivityIndicator, Button, Dialog, Portal, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Button, Colors, Dialog, IconButton, Portal, Text, TextInput } from 'react-native-paper';
 import { Comment } from '../../models/Comment';
 import { Pagination } from '../../models/Pagination';
 import { fetchComments, postComment } from '../../api/feedApi';
@@ -34,7 +34,6 @@ const CommentSection: React.FC = () => {
     );
 
     const loadComments = async (page: number) => {
-        console.log("load comments ", page)
         if (page === 1) {
             dispatch(commentSlice.actions.setRefreshing(true));
         }
@@ -94,8 +93,19 @@ const CommentSection: React.FC = () => {
                 }
                 {user != null &&
                     <Dialog.Actions>
-                        <TextInput value={newComment} onChangeText={newValue => setNewComment(newValue)} mode='outlined' multiline={true} style={{ flex: 1 }} label="comment" />
-                        <Button loading={isLoading} disabled={newComment.length == 0} onPress={async () => await submitComment()}>Submit</Button>
+                        <TextInput value={newComment} disabled={isLoading} onChangeText={newValue => setNewComment(newValue)} mode='outlined' multiline={true} style={{ flex: 1 }} label="comment" />
+                        {isLoading &&
+                            <ActivityIndicator animating={true} />
+                        }
+                        {!isLoading &&
+                            <IconButton
+                                icon="send"
+                                size={20}
+                                color={Colors.blue900}
+                                disabled={newComment.length == 0}
+                                onPress={async () => await submitComment()}
+                            />
+                        }
                     </Dialog.Actions>
                 }
             </Dialog>

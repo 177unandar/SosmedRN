@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import {
   Button,
   Divider,
@@ -8,15 +8,15 @@ import {
   TextInput,
   Title,
 } from 'react-native-paper';
-import {postLogin} from '../../api/accountApi';
-import {LoginPayload} from '../../api/payload/LoginPayload';
-import {BaseResponse} from '../../api/response/BaseResponse';
-import {LoginResponse} from '../../api/response/LoginResponse';
-import {accoutSlice} from '../../redux/AccountSlice';
-import {useAppDispatch} from '../../redux/hook';
-import {snackbarSlice} from '../../redux/SnackbarSlice';
-import {margins, styles} from '../../styles/styles';
-import {saveSessionFromResponse} from '../../utils/storage/UserSession';
+import { postLogin } from '../../api/accountApi';
+import { LoginPayload } from '../../api/payload/LoginPayload';
+import { BaseResponse } from '../../api/response/BaseResponse';
+import { LoginResponse } from '../../api/response/LoginResponse';
+import { accoutSlice } from '../../redux/AccountSlice';
+import { useAppDispatch } from '../../redux/hook';
+import { snackbarSlice } from '../../redux/SnackbarSlice';
+import { margins, styles } from '../../styles/styles';
+import { saveSessionFromResponse } from '../../utils/storage/UserSession';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();
@@ -26,10 +26,12 @@ const LoginScreen = () => {
   const [password, setPassword] = React.useState('');
 
   const submitForm = async () => {
-    setSubmitted(true);
-    if (isValidForm()) {
-      setLoading(true);
-      loggingIn();
+    if (!isLoading) {
+      setSubmitted(true);
+      if (isValidForm()) {
+        setLoading(true);
+        loggingIn();
+      }
     }
   };
 
@@ -84,6 +86,7 @@ const LoginScreen = () => {
         style={styles.componentStyle}
         label="Username"
         value={username}
+        disabled={isLoading}
         error={isSubmitted && isEmptyUsername()}
         onChangeText={newValue => setUsername(newValue)}
       />
@@ -95,6 +98,7 @@ const LoginScreen = () => {
         label="Password"
         secureTextEntry
         value={password}
+        disabled={isLoading}
         error={isSubmitted && isEmptyPassword()}
         onChangeText={newValue => setPassword(newValue)}
       />
