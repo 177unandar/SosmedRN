@@ -8,10 +8,12 @@ import { feedSlice } from '../../redux/FeedSlice';
 import { BaseResponse } from '../../api/response/BaseResponse';
 import { PaginationResponse } from '../../api/response/PaginationResponse';
 import { Pagination } from '../../models/Pagination';
-import { styles } from '../../styles/styles';
+import { margins, styles } from '../../styles/styles';
 import { BottomNavigationProp } from '../../navigations/types.navigation';
 import { useNavigation } from '@react-navigation/native';
 import CommentSection from './CommentSection';
+import { ActivityIndicator, Button, Headline, Text } from 'react-native-paper';
+import { User } from '../../models/User';
 
 const HomeScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ const HomeScreen: React.FC = () => {
   navigation.addListener('focus', () => {
     loadData(1);
   });
+  const user: User | null = useAppSelector(state => state.account.user);
   const feeds: Feed[] = useAppSelector(state => state.feed.feeds);
   const pagination: Pagination | null = useAppSelector(
     state => state.feed.pagination,
@@ -43,16 +46,35 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        onEndReachedThreshold={0.01}
-        onEndReached={() => {
-          loadMore();
-        }}
-        data={feeds}
-        renderItem={({ item, index }) => <FeedCard feed={item} isLoading={(index == (feeds.length - 1) && pagination?.nextPage != null)} />}
-        onRefresh={() => loadData(1)}
-        refreshing={isRefreshing}
-      />
+      {feeds.length == 0 && isRefreshing &&
+        <ActivityIndicator style={margins.v3} size="large" animating={true} />
+      }
+      {feeds.length == 0 && !isRefreshing &&
+        <View style={[styles.centerChilds, { height: '100%' }]}>
+          <Headline>No Feeds yet</Headline>
+          {user != null &&
+            <Button style={margins.t4} mode='text' onPress={() => navigation.navigate('Post')}>Create First Feed</Button>
+          }
+          {user == null &&
+            <View style={margins.t4}>
+              <Button mode='text' onPress={() => navigation.navigate('Account')}>Login</Button>
+              <Text>to create first feed</Text>
+            </View>
+          }
+        </View>
+      }
+      {feeds.length > 0 &&
+        <FlatList
+          onEndReachedThreshold={0.01}
+          onEndReached={() => {
+            loadMore();
+          }}
+          data={feeds}
+          renderItem={({ item, index }) => <FeedCard feed={item} isLoading={(index == (feeds.length - 1) && pagination?.nextPage != null)} />}
+          onRefresh={() => loadData(1)}
+          refreshing={isRefreshing}
+        />
+      }
       <CommentSection />
     </View>
   );
