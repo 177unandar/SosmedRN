@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FlatList, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { commentSlice } from '../../redux/CommentSlice';
-import { Button, Dialog, Portal, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Button, Dialog, Portal, Text, TextInput } from 'react-native-paper';
 import { Comment } from '../../models/Comment';
 import { Pagination } from '../../models/Pagination';
 import { fetchComments, postComment } from '../../api/feedApi';
@@ -40,6 +40,7 @@ const CommentSection: React.FC = () => {
         }
         let response = await dispatch(fetchComments(new GetCommentPayload(selectedId, page)));
         let payload = response.payload as BaseResponse<PaginationResponse<Comment>>;
+        dispatch(commentSlice.actions.setRefreshing(false));
         dispatch(commentSlice.actions.updateComments(payload));
     };
 
@@ -72,7 +73,10 @@ const CommentSection: React.FC = () => {
     return (
         <Portal>
             <Dialog visible={selectedId > 0} onDismiss={async () => closeComments()}>
-                {comments.length == 0 && <Dialog.Content><Text style={margins.v3}>No comments yet.</Text></Dialog.Content>}
+                {comments.length == 0 && isRefreshing &&
+                    <ActivityIndicator style={margins.v3} animating={true} />
+                }
+                {comments.length == 0 && !isRefreshing && <Dialog.Content><Text style={margins.v3}>No comments yet.</Text></Dialog.Content>}
                 {comments.length > 0 &&
                     <Dialog.ScrollArea>
                         <FlatList
@@ -81,7 +85,8 @@ const CommentSection: React.FC = () => {
                                 loadMore();
                             }}
                             data={comments}
-                            renderItem={({ item }) => <CommentItem comment={item} />}
+                            renderItem={({ item, index }) => <CommentItem comment={item}
+                                isLoading={(index == (comments.length - 1) && pagination?.nextPage != null)} />}
                             onRefresh={() => loadComments(1)}
                             refreshing={isRefreshing}
                         />

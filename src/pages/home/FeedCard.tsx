@@ -24,6 +24,7 @@ const FeedCard: React.FC<Props> = ({ feed, isLoading }) => {
   const dispatch = useAppDispatch();
 
   const showComments = async () => {
+    await dispatch(commentSlice.actions.setRefreshing(true));
     dispatch(feedSlice.actions.setSelectedId(feed.id))
     let response = await dispatch(fetchComments(new GetCommentPayload(feed.id, 1)));
     let payload = response.payload as BaseResponse<PaginationResponse<Comment>>;
