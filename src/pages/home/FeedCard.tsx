@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { Image, PixelRatio, useWindowDimensions, View } from 'react-native';
 import { ActivityIndicator, Avatar, Badge, Button, Caption, Card, Divider, Text } from 'react-native-paper';
 import { Feed } from '../../models/Feed';
 import moment from 'moment';
@@ -14,6 +14,8 @@ import { BaseResponse } from '../../api/response/BaseResponse';
 import { PaginationResponse } from '../../api/response/PaginationResponse';
 import { Comment } from '../../models/Comment';
 import { commentSlice } from '../../redux/CommentSlice';
+import { cldImg } from '../../utils/CloudinaryHelper';
+import { thumbnail } from '@cloudinary/url-gen/actions/resize';
 
 type Props = {
   feed: Feed;
@@ -21,6 +23,11 @@ type Props = {
 };
 
 const FeedCard: React.FC<Props> = ({ feed, isLoading }) => {
+
+  const deviceWidth = useWindowDimensions().width
+  const cldUrl = cldImg(feed.image_url).resize(thumbnail().width(PixelRatio.getPixelSizeForLayoutSize(deviceWidth))).toURL();
+  const [imageHeight, setImageHeight] = React.useState<number>(200);
+
   const dispatch = useAppDispatch();
 
   const showComments = async () => {
@@ -31,10 +38,17 @@ const FeedCard: React.FC<Props> = ({ feed, isLoading }) => {
     dispatch(commentSlice.actions.updateComments(payload));
   }
 
+  React.useEffect(() => {
+    Image.getSize(cldImg(feed.image_url).resize(thumbnail().width(deviceWidth)).toURL(),
+      (width, height) => { setImageHeight(height) })
+  }, [feed.image_url]);
+
   return (
     <View style={styles.componentStyle}>
       <Card>
-        <Card.Cover resizeMode="contain" source={{ uri: feed.image_url }} />
+        <Card.Cover resizeMode="contain" source={{ uri: cldUrl }}
+          style={{ height: imageHeight }}
+        />
         <Card.Title
           title={feed.username.toLowerCase()}
           subtitle={feed.fullname}
