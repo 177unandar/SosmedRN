@@ -12,7 +12,7 @@ import { Button, Card, TextInput } from 'react-native-paper';
 import { postFeed } from '../../api/feedApi';
 import { FeedPayload } from '../../api/payload/FeedPayload';
 import { BaseResponse } from '../../api/response/BaseResponse';
-import { BottomNavigationProp } from '../../navigations/types.navigation';
+import { BottomNavigationProp } from '../../utils/types/navigation.types';
 import { accoutSlice } from '../../redux/AccountSlice';
 import { feedSlice } from '../../redux/FeedSlice';
 import { useAppDispatch } from '../../redux/hook';

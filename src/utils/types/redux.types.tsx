@@ -1,7 +1,7 @@
-import { Comment } from '../models/Comment';
-import { Feed } from '../models/Feed';
-import { Pagination } from '../models/Pagination';
-import { User } from '../models/User';
+import { Comment } from '../../models/Comment';
+import { Feed } from '../../models/Feed';
+import { Pagination } from '../../models/Pagination';
+import { User } from '../../models/User';
 
 export type FeedState = {
   feeds: Feed[];

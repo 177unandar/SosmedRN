@@ -1,16 +1,16 @@
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import React, {useEffect} from 'react';
-import {BackHandler} from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import React, { useEffect } from 'react';
+import { BackHandler } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../pages/home/HomeScreen';
 import PostScreen from '../pages/post/PostScreen';
 import AccountScreen from '../pages/account/AccountScreen';
-import {bottomNavStyle} from '../styles/bottomNavStyle';
-import {useAppDispatch, useAppSelector} from '../redux/hook';
-import {snackbarSlice} from '../redux/SnackbarSlice';
-import {BottomStackNavigatorParamList} from './types.navigation';
-import {User} from '../models/User';
+import { bottomNavStyle } from '../styles/bottomNavStyle';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { snackbarSlice } from '../redux/SnackbarSlice';
+import { BottomStackNavigatorParamList } from '../utils/types/navigation.types';
+import { User } from '../models/User';
 
 const Tab = createMaterialBottomTabNavigator<BottomStackNavigatorParamList>();
 
@@ -52,7 +52,7 @@ const BottomNatigation = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Feeds',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="image-auto-adjust"
               color={color}
@@ -67,7 +67,7 @@ const BottomNatigation = () => {
           component={PostScreen}
           options={{
             tabBarLabel: 'Post',
-            tabBarIcon: ({color}) => (
+            tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="camera-plus"
                 color={color}
@@ -82,7 +82,7 @@ const BottomNatigation = () => {
         component={AccountScreen}
         options={{
           tabBarLabel: 'Account',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="account"
               color={color}

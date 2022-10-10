@@ -3,7 +3,7 @@ import { BaseResponse } from './response/BaseResponse';
 import { Feed } from '../models/Feed';
 import { Comment } from '../models/Comment';
 import { PaginationResponse } from './response/PaginationResponse';
-import { BASE_URL } from '../utils/config';
+import { BASE_URL } from 'react-native-dotenv';
 import { FeedPayload } from './payload/FeedPayload';
 import { getSessionToken } from '../utils/storage/UserSession';
 import { GetCommentPayload } from './payload/GetCommentPayload';

@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {SnackbarState} from './redux.types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SnackbarState } from '../utils/types/redux.types';
 
 export const SNACKBAR_NORMAL = 1;
 export const SNACKBAR_ERROR = 2;

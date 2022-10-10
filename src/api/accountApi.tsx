@@ -1,9 +1,9 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {BaseResponse} from './response/BaseResponse';
-import {LoginResponse} from './response/LoginResponse';
-import {BASE_URL} from '../utils/config';
-import {LoginPayload} from './payload/LoginPayload';
-import {RegisterPayload} from './payload/RegisterPayload';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { BaseResponse } from './response/BaseResponse';
+import { LoginResponse } from './response/LoginResponse';
+import { BASE_URL } from 'react-native-dotenv';
+import { LoginPayload } from './payload/LoginPayload';
+import { RegisterPayload } from './payload/RegisterPayload';
 
 export const postLogin = createAsyncThunk(
   'auth/login',
@@ -30,7 +30,7 @@ export const postCheckUsername = createAsyncThunk(
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({username: username}),
+      body: JSON.stringify({ username: username }),
     });
     let json = (await response.json()) as BaseResponse<boolean>;
     return json;

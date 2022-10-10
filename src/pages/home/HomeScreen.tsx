@@ -9,7 +9,7 @@ import { BaseResponse } from '../../api/response/BaseResponse';
 import { PaginationResponse } from '../../api/response/PaginationResponse';
 import { Pagination } from '../../models/Pagination';
 import { margins, styles } from '../../styles/styles';
-import { BottomNavigationProp } from '../../navigations/types.navigation';
+import { BottomNavigationProp } from '../../utils/types/navigation.types';
 import { useNavigation } from '@react-navigation/native';
 import CommentSection from './CommentSection';
 import { ActivityIndicator, Button, Headline, Text } from 'react-native-paper';

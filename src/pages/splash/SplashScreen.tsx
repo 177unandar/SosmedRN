@@ -1,14 +1,14 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import {View} from 'react-native';
-import {Avatar, Colors, Title} from 'react-native-paper';
-import {User} from '../../models/User';
-import {SplashNavigationProp} from '../../navigations/types.navigation';
-import {accoutSlice} from '../../redux/AccountSlice';
-import {useAppDispatch, useAppSelector} from '../../redux/hook';
-import {snackbarSlice} from '../../redux/SnackbarSlice';
-import {margins} from '../../styles/styles';
-import {getLogedUser} from '../../utils/storage/UserSession';
+import { View } from 'react-native';
+import { Avatar, Colors, Title } from 'react-native-paper';
+import { User } from '../../models/User';
+import { SplashNavigationProp } from '../../utils/types/navigation.types';
+import { accoutSlice } from '../../redux/AccountSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { snackbarSlice } from '../../redux/SnackbarSlice';
+import { margins } from '../../styles/styles';
+import { getLogedUser } from '../../utils/storage/UserSession';
 
 const SPLASH_DELAY: number = 2000;
 
@@ -44,7 +44,7 @@ const SplashScreen: React.FC = () => {
         justifyContent: 'center',
       }}>
       <Avatar.Icon style={margins.b4} size={100} icon="chat" />
-      <Title style={{color: Colors.blue500}}>SOSMED APP</Title>
+      <Title style={{ color: Colors.blue500 }}>SOSMED APP</Title>
     </View>
   );
 };

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BaseResponse } from '../api/response/BaseResponse';
 import { PaginationResponse } from '../api/response/PaginationResponse';
-import { CommentState } from './redux.types';
+import { CommentState } from '../utils/types/redux.types';
 import { Comment } from '../models/Comment';
 
 const initialState: CommentState = {

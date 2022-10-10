@@ -1,0 +1,5 @@
+
+declare module 'react-native-dotenv' {
+    export const BASE_URL: string;
+    export const CLOUDINARY_CLOUD_NAME: string;
+}

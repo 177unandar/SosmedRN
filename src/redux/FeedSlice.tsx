@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BaseResponse } from '../api/response/BaseResponse';
 import { Feed } from '../models/Feed';
 import { PaginationResponse } from '../api/response/PaginationResponse';
-import { FeedState } from './redux.types';
+import { FeedState } from '../utils/types/redux.types';
 
 const initialState: FeedState = {
   feeds: [],
